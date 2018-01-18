@@ -11,14 +11,15 @@ class importPrescribersCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'importPrescribersCSV {file}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Imports a CSV File of Prescribers.\n Columns supported are:\n
+    id, npi, name, email, password, phone, phone_extension, fax, role, is_admin,created_at,updated_at';
 
     /**
      * Create a new command instance.
@@ -37,6 +38,6 @@ class importPrescribersCSV extends Command
      */
     public function handle()
     {
-        //
+
     }
 }
