@@ -13,7 +13,19 @@ class CreatePrescribersTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('prescribers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->bigInteger('npi');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->bigInteger('phone');
+            $table->integer('phone_extension')->nullable();
+            $table->bigInteger('fax')->nullable();
+            $table->enum('role', ['prescriber']);
+            $table->boolean('is_admin');
+            $table->timestamps();
+        });
     }
 
     /**
