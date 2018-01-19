@@ -1,0 +1,16 @@
+npi,name,email,password,phone,phone_ext,fax,role,is_admin
+3333333331,Prescriber 1 (UCSF - Test),ucsfdr1@dmehub.com,"A5(!FN@2n8""./&f`",4154761000,,4154762000,prescriber,1
+3333333332,Prescriber 2 (UCSF - Test),ucsfdr2@dmehub.com,"B2(fSb~z;M]ue""6r",4154761001,5574,,prescriber,1
+3333333333,Prescriber 3 (UCSF - Test),ucsfdr3@dmehub.com,"X%FbY8z{.cJm""GA6",4154761002,,,prescriber,0
+3333333334,Prescriber 4 (UCSF - Test),ucsfdr4@dmehub.com,NbQ.sXPeLfw=`6VE,4154761003,,,prescriber,1
+3333333335,Prescriber 5 (UCSF - Test),ucsfdr5@dmehub.com,"y?du{YAh7""NxCP@(",4154761004,3949,4154762001,prescriber,0
+3333333331,Prescriber 1 (UCSF - Test),ucsfdr1@dmehub.com,TL7p2v8XdjM9=/wP,4154761005,3223,4154762002,prescriber,0
+3333333332,Prescriber 2 (UCSF - Test),ucsfdr2@dmehub.com,"EzPm_9""7sLVv&)5G",4154761006,,,prescriber,0
+3333333333,Prescriber 3 (UCSF - Test),ucsfdr3@dmehub.com,mwk!Q4^?%q=xsRV+,4154761007,,,prescriber,1
+3333333334,Prescriber 4 (UCSF - Test),ucsfdr4@dmehub.com,R4m<^Ny!WPM3)8n?,4154761008,,,prescriber,1
+3333333335,Prescriber 5 (UCSF - Test),ucsfdr5@dmehub.com,N:@?9_D3~{6bERxY,4154761009,1343,4154762003,prescriber,0
+3333333331,Prescriber 1 (UCSF - Test),ucsfdr1@dmehub.com,Cw3)`.L:S7E4j-Py,4154761010,,,prescriber,1
+3333333332,Prescriber 2 (UCSF - Test),ucsfdr2@dmehub.com,JS4jw$DQ3*h_E<pG,4154761011,9384,,prescriber,0
+3333333333,Prescriber 3 (UCSF - Test),ucsfdr3@dmehub.com,"H7eU-.scav69Nt>""",4154761012,,,prescriber,0
+3333333334,Prescriber 4 (UCSF - Test),ucsfdr4@dmehub.com,We4ub'#3B9.&(;?z,4154761013,,,prescriber,1
+3333333335,Prescriber 5 (UCSF - Test),ucsfdr5@dmehub.com,FU63Pjp{<W;S_`s4,4154761014,2343,4154762004,prescriber,1
