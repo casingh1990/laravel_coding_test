@@ -56,8 +56,60 @@ class importPrescribersCSV extends Command
         if ($this->validate()){
             return $this->outputError();
         }
+
+        $this->processImport();
     }
 
+    /**
+     * Does the import operation
+     * Assumes file has already been validated (exists and is csv)
+     **/
+    private function processImport(){
+        try{
+            $prescribers = file($this->file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $keys=$this->setupkeys($prescribers[0]);
+            $no_prescribers = count($prescribers) - 1;
+
+            $this->info("Importing $no_prescribers prescribers from {$this->file}");
+
+            $imported = 0;
+            $failed=0;
+            $failed_message = "";
+            for ($i=1; $i<=$no_prescribers; $i++){
+                try{
+                    $imported++;
+                }
+                catch(\Exception $e){
+                    $failed++;
+                    $failed_message .= $e->getMessage() . "\n";
+                }
+
+          }
+
+          $this->info("\n\nSummary\n\nImported $imported records");
+          $this->error("Failed to import $failed records");
+        }catch(Exception $e){
+
+        }
+    }
+
+    //Converts keys comma separated into php array
+    private function setupkeys($keys_string){
+      $keys = explode(",",$keys_string);
+      foreach($keys as &$key){
+        switch($key){
+          case "phone_ext":
+            $key = "phone_extension";
+            break;
+        }
+      }
+      return $keys;
+    }
+
+    /**
+     * Performs basic validation
+     *
+     */
     private function validate(){
         $fs = new Filesystem();
         if (!$fs->exists($this->file)){
