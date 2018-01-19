@@ -165,6 +165,10 @@
                            })
                            this.storeState();
                        },
+                       changePage: function (page) {
+                           this.pagination.current_page = page;
+                           this.fetchItems(page);
+                       },
                        storeState: function(){
                            localStorage.setItem('pagination', JSON.stringify(this.pagination));
                            localStorage.setItem('columns', JSON.stringify(this.columns));
