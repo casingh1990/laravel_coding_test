@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
+use App\Prescriber;
+
 class importPrescribersCSV extends Command
 {
     /**
@@ -66,32 +68,74 @@ class importPrescribersCSV extends Command
      **/
     private function processImport(){
         try{
+            //open file and read in lines to PHP Array
             $prescribers = file($this->file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            $keys=$this->setupkeys($prescribers[0]);
-            $no_prescribers = count($prescribers) - 1;
 
+            //convert first row to keys
+            $keys=$this->setupkeys($prescribers[0]);
+
+            //get and show number of entries in file
+            $no_prescribers = count($prescribers) - 1;
             $this->info("Importing $no_prescribers prescribers from {$this->file}");
 
+            //progress bar
+            $bar = $this->output->createProgressBar($no_prescribers);
+
+            /**
+             * variables to track
+             * $imported
+             * $failed
+             * $failed message
+             **/
             $imported = 0;
             $failed=0;
             $failed_message = "";
             for ($i=1; $i<=$no_prescribers; $i++){
+                //using try catch so that any individual issues are captured separately
                 try{
+                    $prescriber_data = $this->convert_csv_to_prescriber($keys, $prescribers[$i]);
+                    $prescriber_data->save();
+                    //if no error, assuming that import was successful
                     $imported++;
                 }
-                catch(\Exception $e){
+                catch(\Illuminate\Database\QueryException $e){
                     $failed++;
+                    //right now just storing the message
                     $failed_message .= $e->getMessage() . "\n";
                 }
+                $bar->advance();
+            }
+            $bar->finish();
+            $this->info("\n\nSummary\n\nImported $imported records");
 
-          }
-
-          $this->info("\n\nSummary\n\nImported $imported records");
-          $this->error("Failed to import $failed records");
+            if ($failed > 0){
+                $this->error("Failed to import $failed records");
+            }
         }catch(Exception $e){
 
+        }//end of catch block
+    }//end of import function
+
+    /**
+     * Convert prescrive csv to Prescriber Object
+     * @param $keys -> Column Heading in csv
+     * @param $prescriber_csv -> Prescriber data in csv format
+     * @return Prescriber
+     **/
+    private function convert_csv_to_prescriber(&$keys, &$prescriber_csv){
+        $row_data = explode(",", $prescriber_csv);
+        $prescriber = new Prescriber();
+        foreach($keys as $key => $value){
+
+            //adding only rows that contain data
+            //depending on database to validate required fields
+            if ($row_data[$key] !== ""){
+                    //matching column heading with data
+                    $prescriber->$value = $row_data[$key];
+            }
         }
-    }
+        return $prescriber;
+    }//end of function convert_csv_to_prescriber
 
     //Converts keys comma separated into php array
     private function setupkeys($keys_string){
