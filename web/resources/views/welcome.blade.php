@@ -26,25 +26,25 @@
                            <thead class="thead-dark">
                                <tr>
                                    <th v-on:click="sortByColumn('id');" id="col-id" scope="col">
-                                       # <span v-if="columns.col = 'id'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
+                                       # <span v-if="columns.col == 'id'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                    <th v-on:click="sortByColumn('npi');" id="col-npi" scope="col">
-                                       NPI
+                                       NPI <span v-if="columns.col == 'npi'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                    <th v-on:click="sortByColumn('name');" id="col-name" scope="col">
-                                       Name
+                                       Name <span v-if="columns.col == 'name'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                    <th v-on:click="sortByColumn('email');" id="col-email" scope="col">
-                                       Email
+                                       Email <span v-if="columns.col == 'email'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                    <th v-on:click="sortByColumn('phone');" id="col-phone" scope="col">
-                                       Phone
+                                       Phone <span v-if="columns.col == 'phone'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                    <th v-on:click="sortByColumn('fax');" id="col-fax" scope="col">
-                                       Fax
+                                       Fax <span v-if="columns.col == 'fax'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                    <th v-on:click="sortByColumn('role');" id="col-role" scope="col">
-                                       Role
+                                       Role <span v-if="columns.col == 'role'"><span v-if="columns.asc">/|\</span><span v-else>\|/<span></span>
                                    </th>
                                </tr>
                            </thead>
@@ -129,7 +129,29 @@
                            }
                            return pagesArray;
                        }//end pagesNumber
-                   }//end computed
+                   },//end computed
+                   methods: {
+                       sortByColumn: function (column = false){
+                           if (!column){
+                               column = this.columns.col;
+                           }else if (this.columns.col === column){
+                               this.columns.asc = !this.columns.asc;
+                           }else{
+                               this.columns.col = column;
+                               this.columns.asc = true;
+                           }
+
+                           var vm = this;
+                           this.items.sort(function(a, b){
+                               if (a[column] < b[column]){
+                                   return ((vm.columns.asc)?-1:1);
+                               }else if (a[column] == b[column]){
+                                   return 0;
+                               }
+                               return ((vm.columns.asc)?1:-1);
+                           })
+                       }
+                   }
                }//end Vue App
            );//end Vue App
         </script>
