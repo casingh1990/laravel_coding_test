@@ -4,6 +4,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Prescriber;
+
 class PrescribersTest extends TestCase
 {
     /**
@@ -13,6 +15,11 @@ class PrescribersTest extends TestCase
      */
     public function testExample()
     {
+        //test create prescribers
+        //test get prescriber
+        //test get Pagination
+        //test file import
+        //test file import validation
         $this->assertTrue(true);
     }
 }
