@@ -12,7 +12,7 @@
         <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <script src="/js/vue.js"></script>
         <script src="/js/jquery-2.2.4.min.js"></script>
-
+        <script src="/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div style="text-shadow: 1px 1px 3px gray;" class="h1 text-center">
@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="col-md-10 col-md-offset-1">
                     <div id="app">
-                        <table class="table">
+                        <table class="table table-striped table-bordered table-hover">
                            <thead class="thead-dark">
                                <tr>
                                    <th v-on:click="sortByColumn('id');" id="col-id" scope="col">
@@ -58,7 +58,7 @@
                                    <td>@{{ prescriber.fax }}</td>
                                    <td>
                                        @{{ prescriber.role }}
-                                       @{{ prescriber.is_admin }}
+                                       <span v-if="prescriber.is_admin">Admin</span>
                                    </td>
                                </tr>
                            </tbody>
@@ -166,6 +166,7 @@
                            this.storeState();
                        },
                        changePage: function (page) {
+                           this.columns.col='id';
                            this.pagination.current_page = page;
                            this.fetchItems(page);
                        },
