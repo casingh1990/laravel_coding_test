@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('prescribers', 'PrescribersController');
+Route::get('/api/prescribers', 'PrescribersController@paginate');

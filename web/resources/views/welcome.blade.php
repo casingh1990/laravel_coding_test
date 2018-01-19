@@ -106,6 +106,9 @@
                            asc: true
                        },
                    },
+                   mounted: function () {
+                       this.fetchItems(this.pagination.current_page);
+                   },
                    computed: {
                        isActived: function() {
                            return this.pagination.current_page;
@@ -131,6 +134,15 @@
                        }//end pagesNumber
                    },//end computed
                    methods: {
+                       fetchItems: function (page) {
+                           var data = {page: page};
+                           var vm = this;
+                           $.get( "api/prescribers?page=" + page, function( data ) {
+                             vm.items = data.data.data;
+                             vm.pagination = data.pagination;
+                             vm.sortByColumn();
+                            });
+                       },
                        sortByColumn: function (column = false){
                            if (!column){
                                column = this.columns.col;
