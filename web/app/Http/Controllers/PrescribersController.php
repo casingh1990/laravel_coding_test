@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Prescriber;
 use Illuminate\Http\Request;
 
 class PrescribersController extends Controller
