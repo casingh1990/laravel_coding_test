@@ -35,6 +35,6 @@ class CreatePrescribersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('prescribers');
     }
 }
