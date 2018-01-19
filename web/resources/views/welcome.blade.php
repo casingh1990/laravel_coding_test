@@ -107,6 +107,7 @@
                        },
                    },
                    mounted: function () {
+                       this.loadState();
                        this.fetchItems(this.pagination.current_page);
                    },
                    computed: {
@@ -162,6 +163,21 @@
                                }
                                return ((vm.columns.asc)?1:-1);
                            })
+                           this.storeState();
+                       },
+                       storeState: function(){
+                           localStorage.setItem('pagination', JSON.stringify(this.pagination));
+                           localStorage.setItem('columns', JSON.stringify(this.columns));
+                       },
+                       loadState: function(){
+                           var lp = JSON.parse(localStorage.getItem('pagination'));
+                           var col = JSON.parse(localStorage.getItem('columns'));
+                           if (lp){
+                               this.pagination = lp
+                           }
+                           if (col){
+                               this.columns = col;
+                           }
                        }
                    }
                }//end Vue App
