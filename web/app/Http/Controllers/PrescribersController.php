@@ -17,6 +17,27 @@ class PrescribersController extends Controller
     }
 
     /**
+     * Paginate using Laravel inbuilt paginate features
+     * Result will be converted to JSON when sending to browser
+     * @return Response
+     */
+    public function paginate(){
+        $results = Prescriber::paginate(50);
+        $response = [
+            'pagination'=>[
+                'total' => $results->total(),
+                'per_page' => $results->perPage(),
+                'current_page' => $results->currentPage(),
+                'last_page' => $results->lastPage(),
+                'from' => $results->firstItem(),
+                'to' => $results->lastItem()
+            ],
+            'data'=>$results
+        ];
+        return $response;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
